@@ -5,8 +5,8 @@ templateHeader.innerHTML = `
     display: block;
   }
 </style>
-<header style="box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.13);" class="bg-white-100">
-  <div class="container h-5-6 flex items-center justify-between ">
+<header class="">
+  <div class="container">
     <div>SomeLogo</div>
     <div>hello user</div>
   </div>
