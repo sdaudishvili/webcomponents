@@ -1,0 +1,114 @@
+html,
+body {
+  min-width: 320px;
+  -webkit-overflow-scrolling: touch;
+  touch-action: manipulation;
+  height: 100%;
+  overflow: overlay;
+  overflow-x: hidden;
+  margin: 0;
+}
+
+#root {
+  font-size: 1.6rem;
+}
+
+html {
+  // font-size: var(--base-font-size);
+  font-size: 62.5%;
+  // @media only screen and (max-width: 1880px) {
+  //   font-size: 61%;
+  // }
+  @media only screen and (max-width: 1760px) {
+    font-size: 57.5%;
+  }
+  @media only screen and (max-width: 1660px) {
+    font-size: 54%;
+  }
+  @media only screen and (max-width: 1560px) {
+    font-size: 52.5%;
+  }
+  @media only screen and (max-width: 1500px) {
+    font-size: 48.8%;
+  }
+  // @media only screen and (max-width: 1450px) {
+  //   font-size: 47%;
+  // }
+  @media only screen and (max-width: 1400px) {
+    font-size: 45.5%;
+  }
+  @media only screen and (max-width: 1360px) {
+    font-size: 44%;
+  }
+  // @media only screen and (max-width: 1280px) {
+  //   font-size: 41.5%;
+  // }
+  @media only screen and (max-width: 1230px) {
+    font-size: 40%;
+  }
+  @media only screen and (max-width: 1160px) {
+    font-size: 37.7%;
+  }
+  @media only screen and (max-width: 1100px) {
+    font-size: 35.7%;
+  }
+  @media only screen and (max-width: 1024px) {
+    font-size: 33%;
+  }
+
+  @media only screen and (max-width: 768px) {
+    font-size: 62.5%;
+  }
+  @media only screen and (max-width: 640px) {
+    font-size: 52%;
+  }
+  @media only screen and (max-width: 600px) {
+    font-size: 48%;
+  }
+  @media only screen and (max-width: 550px) {
+    font-size: 43%;
+  }
+  @media only screen and (max-width: 500px) {
+    font-size: 39.5%;
+  }
+  @media only screen and (max-width: 480px) {
+    font-size: 37%;
+  }
+  @media only screen and (max-width: 415px) {
+    font-size: 32.5%;
+  }
+  @media only screen and (max-width: 375px) {
+    font-size: 30%;
+  }
+  @media only screen and (max-width: 350px) {
+    font-size: 28.5%;
+  }
+  @media only screen and (max-width: 320px) {
+    font-size: 26%;
+  }
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--blue-200);
+  height: 100%;
+  position: relative;
+}
+
+a {
+  color: var(--black);
+}
+
+.container {
+  width: 1400px;
+  margin: auto;
+}
+
+.example {
+  display: grid;
+  transition: all 0.5s;
+  user-select: none;
+  background: linear-gradient(to bottom, white, black);
+}
