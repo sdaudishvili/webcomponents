@@ -4,16 +4,33 @@ import { SinglePayment, Footer } from '@/components';
 const paymentsContainer = document.querySelector('.payments');
 const footer = document.querySelector('.footer');
 
-window.addEventListener('DOMContentLoaded', () => {
-  axios.get('/api/payments').then((response) => {
+const fetchData = (cb, query) => {
+  axios.get('/api/payments', query).then((response) => {
     const {
       data: { payments }
     } = response;
-    let sum = 0;
-    payments.forEach((payment) => {
-      sum += payment.amount;
-      paymentsContainer.appendChild(new SinglePayment(payment));
-    });
-    footer.appendChild(new Footer(sum.toFixed(2)));
+    cb(payments);
   });
+};
+
+const render = (payments) => {
+  let sum = 0;
+  paymentsContainer.innerHTML = '';
+  footer.innerHTML = '';
+
+  payments.forEach((payment) => {
+    sum += payment.amount;
+    paymentsContainer.appendChild(new SinglePayment(payment));
+  });
+  footer.appendChild(new Footer(sum.toFixed(2)));
+};
+
+const onFilter = ({ detail: q }) => {
+  fetchData(render, { q });
+};
+
+document.querySelector('my-filter').addEventListener('filter', onFilter);
+
+window.addEventListener('DOMContentLoaded', () => {
+  fetchData(render);
 });

@@ -64,6 +64,17 @@ const payments = [
   }
 ];
 
-mock.onGet('/api/payments').reply(200, {
-  payments
+mock.onGet('/api/payments').reply(({ q }) => {
+  console.log(q);
+  let dataToSend = [...payments];
+  if (q) {
+    const qToLower = q.toLowerCase();
+    dataToSend = dataToSend.filter(
+      (x) =>
+        x.title.toLowerCase().includes(qToLower) ||
+        x.comment.toLowerCase().includes(qToLower) ||
+        x.category.toLowerCase().includes(qToLower)
+    );
+  }
+  return [200, { payments: dataToSend }];
 });
