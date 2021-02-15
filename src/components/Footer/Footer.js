@@ -23,16 +23,21 @@ div.amount {
 `;
 
 class Footer extends HTMLElement {
-  constructor() {
+  constructor(totalAmount = 0) {
     super();
-    this._totalAmount = '83.60';
+    this._totalAmount = totalAmount;
     this.attachShadow({ mode: 'open' });
-    this.shadowRoot.appendChild(templateHeader.content.cloneNode(true));
-    this.shadowRoot.querySelector('div.amount').innerHTML = this._totalAmount;
+    this._render();
   }
 
   set totalAmount(val) {
     this._totalAmount = val;
+    this._render();
+  }
+
+  _render() {
+    this.shadowRoot.appendChild(templateHeader.content.cloneNode(true));
+    this.shadowRoot.querySelector('div.amount').innerHTML = this._totalAmount;
   }
 }
 

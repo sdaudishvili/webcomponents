@@ -1,11 +1,8 @@
 import dayjs from 'dayjs';
-// eslint-disable-next-line import/no-webpack-loader-syntax
-import css from './SinglePayment.styles.scss';
+import styles from './SinglePayment.styles.scss';
 
-console.log(css);
-
-const styles = document.createElement('style');
-styles.innerHTML = css;
+const style = document.createElement('style');
+style.textContent = styles;
 
 class SinglePayment extends HTMLElement {
   constructor(payment = {}) {
@@ -14,19 +11,8 @@ class SinglePayment extends HTMLElement {
     this.attachShadow({ mode: 'open' });
   }
 
-  static get observedAttributes() {
-    return ['expanded'];
-  }
-
   set payment(value) {
     this._payment = value;
-  }
-
-  attributeChangedCallback(name, oldValue, newValue) {
-    JSON.stringify(this);
-    console.log('name', name);
-    console.log('oldValue', oldValue);
-    console.log('newValue', newValue);
   }
 
   connectedCallback() {
@@ -84,7 +70,7 @@ class SinglePayment extends HTMLElement {
         </div>
       </div>
     </div>`;
-    this.shadowRoot.appendChild(styles.cloneNode(true));
+    this.shadowRoot.appendChild(style.cloneNode(true));
     this.shadowRoot.appendChild(elemTemaplate.content.cloneNode(true));
   }
 }

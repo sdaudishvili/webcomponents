@@ -1,13 +1,19 @@
 import axios from '@/utils/axios';
+import { SinglePayment, Footer } from '@/components';
+
+const paymentsContainer = document.querySelector('.payments');
+const footer = document.querySelector('.footer');
 
 window.addEventListener('DOMContentLoaded', () => {
-  const container = document.querySelector('.payments');
   axios.get('/api/payments').then((response) => {
     const {
       data: { payments }
     } = response;
-    const el = document.createElement('my-payments');
-    el.payments = payments;
-    container.appendChild(el);
+    let sum = 0;
+    payments.forEach((payment) => {
+      sum += payment.amount;
+      paymentsContainer.appendChild(new SinglePayment(payment));
+    });
+    footer.appendChild(new Footer(sum.toFixed(2)));
   });
 });

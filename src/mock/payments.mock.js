@@ -1,7 +1,9 @@
 import mock from '@/utils/mock';
 import categoryTypes from '@/utils/categoryTypes';
 
-const getRandomCategory = () => categoryTypes[Math.floor(Math.random() * categoryTypes.length)];
+const randBetween = (min, max) => Math.floor(Math.random() * max) + min;
+
+const getRandomCategory = () => categoryTypes[randBetween(0, categoryTypes.length)];
 
 const payments = [
   {
@@ -10,7 +12,7 @@ const payments = [
     category: getRandomCategory(),
     createDate: new Date(),
     comment: 'Payment Comment',
-    amount: '21.80'
+    amount: randBetween(0, 1000) / 100
   },
   {
     id: '2',
@@ -18,7 +20,7 @@ const payments = [
     category: getRandomCategory(),
     createDate: new Date(),
     comment: 'Payment Comment Longer',
-    amount: '21.80'
+    amount: randBetween(0, 1000) / 100
   },
   {
     id: '3',
@@ -26,7 +28,7 @@ const payments = [
     category: getRandomCategory(),
     createDate: new Date(),
     comment: 'Longer Payment Comment',
-    amount: '21.80'
+    amount: randBetween(0, 1000) / 100
   },
   {
     id: '4',
@@ -34,7 +36,7 @@ const payments = [
     category: getRandomCategory(),
     createDate: new Date(),
     comment: 'Payment Comment a bit Longer',
-    amount: '21.80'
+    amount: randBetween(0, 1000) / 100
   },
   {
     id: '5',
@@ -42,7 +44,7 @@ const payments = [
     category: getRandomCategory(),
     createDate: new Date(),
     comment: 'Payment Comment a bit Longer than previous one',
-    amount: '21.80'
+    amount: randBetween(0, 1000) / 100
   },
   {
     id: '6',
@@ -50,7 +52,7 @@ const payments = [
     category: getRandomCategory(),
     createDate: new Date(),
     comment: 'Payment Comment much more Longer than the first one',
-    amount: '21.80'
+    amount: randBetween(0, 1000) / 100
   },
   {
     id: '7',
@@ -58,7 +60,7 @@ const payments = [
     category: getRandomCategory(),
     createDate: new Date(),
     comment: 'Payment Comment much more Longer than the first one',
-    amount: '21.80'
+    amount: randBetween(0, 1000) / 100
   }
 ];
 
