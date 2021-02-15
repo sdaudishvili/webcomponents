@@ -12,6 +12,8 @@
   "rules": {
     "no-unused-vars": ["error", {"argsIgnorePattern": "^_"}],
     "no-console": ["off"],
-    "global-require": ["off"]
+    "global-require": ["off"],
+    "import/no-unresolved": ["off"],
+    "no-underscore-dangle": ["off"]
   }
 }

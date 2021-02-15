@@ -1,12 +1,23 @@
 const templateHeader = document.createElement('template');
 templateHeader.innerHTML = `
-<style>
+<style lang="scss">
   :host {
     display: block;
   }
+  .header {
+    background: var(--white-100);
+    height: var(--header-size);
+  }
+  .header__content {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 </style>
-<header class="">
-  <div class="container">
+
+<header class="header">
+  <div class="header__content container">
     <div>SomeLogo</div>
     <div>hello user</div>
   </div>
@@ -16,9 +27,7 @@ templateHeader.innerHTML = `
 class Header extends HTMLElement {
   constructor() {
     super();
-    this.text = this.getAttribute('data-text');
-    this.attachShadow({ mode: 'open' });
-    this.shadowRoot.appendChild(templateHeader.content.cloneNode(true));
+    this.appendChild(templateHeader.content.cloneNode(true));
   }
 }
 

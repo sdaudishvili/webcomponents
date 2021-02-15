@@ -1,0 +1,52 @@
+.payment {
+  padding: 2rem 1.3rem 2rem 2.5rem;
+  background: var(--white-100);
+  border-bottom: 1px solid var(--blue-200);
+  $self: &;
+  &__title {
+    color: var(--dark-blue);
+    font-size: 2rem;
+  }
+  &__date {
+    color: var(--grey-300);
+    font-size: 1.4rem;
+  }
+  &__price {
+    color: var(--red);
+  }
+  &__price__amount {
+    font-size: 2.2rem;
+  }
+  &__price__currency {
+    font-size: 1.4rem;
+    width: max-content;
+    margin-left: auto;
+  }
+  &__comment {
+    overflow: hidden;
+    height: 0;
+    &__area {
+      font-size: 1.4rem;
+      color: var(--dark-blue);
+      padding-top: 2rem;
+      &__text {
+        margin-top: 1rem;
+        color: var(--grey-200);
+      }
+    }
+  }
+  &--expanded {
+    background: var(--blue-100);
+    #{$self}__comment {
+      height: auto;
+    }
+  }
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .row:not(:first-child) {
+    margin-top: 1.2rem;
+  }
+}

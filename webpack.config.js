@@ -15,13 +15,29 @@ module.exports = (env, argv) => ({
   module: {
     rules: [
       {
+        test: /\.(png|jpg|gif|otf|svg|eot|ttf|woff|woff2)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 100000
+            }
+          }
+        ]
+      },
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         use: ['babel-loader', 'eslint-loader']
       },
       {
         test: /\.(sa|sc|c)ss$/,
+        exclude: [/\.styles.scss$/],
         use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
+      },
+      {
+        test: /\.styles.scss$/,
+        use: ['raw-loader', 'sass-loader']
       }
     ]
   },
@@ -33,6 +49,11 @@ module.exports = (env, argv) => ({
       filename: 'index.html'
     })
   ],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src')
+    }
+  },
   devServer: {
     contentBase: 'dist',
     watchContentBase: true,

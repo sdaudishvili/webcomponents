@@ -1,0 +1,18 @@
+$font-base-path: '../../public/fonts/' !default;
+
+@function font-url($file) {
+  @return url($font-base-path + $file);
+}
+
+$font: 'OpenSans-Regular';
+
+@font-face {
+  font-family: $font;
+  src: font-url('#{$font}.eot'); /* IE9 Compat Modes */
+  src: font-url('#{$font}.eot?#iefix') format('embedded-opentype'),
+    /* IE6-IE8 */ font-url('#{$font}.otf') format('opentype'),
+    /* Open Type Font */ font-url('#{$font}.svg##{$font}') format('svg'), font-url('#{$font}.ttf') format('truetype'),
+    font-url('#{$font}.woff2') format('woff2'), font-url('#{$font}.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
