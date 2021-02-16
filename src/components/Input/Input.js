@@ -41,11 +41,17 @@ class Input extends HTMLElement {
   }
 
   connectedCallback() {
-    this.$input.addEventListener('input', () => {
-      if (this.hasAttribute('errored')) {
-        this.removeAttribute('errored');
-      }
-    });
+    this.$input.addEventListener('input', this._onInputChange.bind(this));
+  }
+
+  disconnectedCallback() {
+    this.$input.removeEventListener('input', this._onInputChange.bind(this));
+  }
+
+  _onInputChange() {
+    if (this.hasAttribute('errored')) {
+      this.removeAttribute('errored');
+    }
   }
 
   get value() {

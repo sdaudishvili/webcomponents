@@ -9,7 +9,7 @@ template.innerHTML = `
 <div class="add-payment">
   <div class="add-payment__header">
     <span>ADD NEW PAYMENT</span>
-    <span>X</span>
+    <span class="add-payment__header__close">X</span>
   </div>
   <form class="add-payment__form">
     <my-input class="add-payment__form__title" type="text" title="Title"></my-input>
@@ -34,6 +34,7 @@ class AddPaymentForm extends HTMLElement {
     this.$date = sr.querySelector('.add-payment__form__date');
     this.$comment = sr.querySelector('.add-payment__form__comment');
     this.$form = sr.querySelector('.add-payment__form');
+    this.$closeBtn = sr.querySelector('.add-payment__header__close');
   }
 
   connectedCallback() {
@@ -48,10 +49,13 @@ class AddPaymentForm extends HTMLElement {
       };
       try {
         validateObject(obj);
-        this.dispatchEvent(new CustomEvent('onsubmit', { detail: { ...obj } }));
+        this.dispatchEvent(new CustomEvent('onSubmit', { detail: { ...obj } }));
       } catch (error) {
         error.errors.map((x) => this[`$${x}`].setAttribute('errored', ''));
       }
+    };
+    this.$closeBtn.onclick = () => {
+      this.dispatchEvent(new CustomEvent('onClose', { detail: {} }));
     };
   }
 }

@@ -16,9 +16,18 @@ template.innerHTML = `
 class Modal extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' });
-    this.shadowRoot.appendChild(style.cloneNode(true));
-    this.shadowRoot.appendChild(template.content.cloneNode(true));
+    const sr = this.attachShadow({ mode: 'open' });
+    sr.appendChild(style.cloneNode(true));
+    sr.appendChild(template.content.cloneNode(true));
+    this.$bg = sr.querySelector('.modal__bg');
+  }
+
+  connectedCallback() {
+    this.$bg.onclick = this._onBackgroundClick.bind(this);
+  }
+
+  _onBackgroundClick() {
+    this.dispatchEvent(new CustomEvent('onClose', { detail: {} }));
   }
 }
 
