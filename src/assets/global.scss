@@ -1,3 +1,9 @@
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
 html,
 body {
   min-width: 320px;
@@ -125,10 +131,12 @@ a {
   flex-direction: column;
 }
 
-.filter {
+.tools {
   margin-top: 3.2rem;
   height: 8.4rem;
   background: white;
+  display: flex;
+  padding: 1.2rem 2.5rem;
 }
 
 .payments-wrapper {

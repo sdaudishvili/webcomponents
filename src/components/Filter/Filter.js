@@ -5,10 +5,11 @@ style.innerHTML = styles;
 
 const template = document.createElement('template');
 template.innerHTML = `
-<div>
-  <input type="text" placeholder="Filter by any property..." />
-  <button>submit</button>
-</div>
+<form class="filter">
+  <input class="filter__input" type="text" placeholder="Filter by any property..." />
+  <vertical-divider></vertical-divider>
+  <button class="filter__button" type="submit">Filter</button>
+</form>
 `;
 
 class Filter extends HTMLElement {
@@ -17,9 +18,10 @@ class Filter extends HTMLElement {
     this.attachShadow({ mode: 'open' });
     this.shadowRoot.appendChild(style.cloneNode(true));
     this.shadowRoot.appendChild(template.content.cloneNode(true));
-    const button = this.shadowRoot.querySelector('button');
     const input = this.shadowRoot.querySelector('input');
-    button.onclick = () => {
+    const form = this.shadowRoot.querySelector('form');
+    form.onsubmit = (e) => {
+      e.preventDefault();
       this.dispatchEvent(new CustomEvent('filter', { detail: input.value }));
     };
   }
