@@ -6,3 +6,5 @@ export { default as Filter } from './Filter';
 export { default as VerticalDivider } from './VerticalDivider';
 export { default as PlusButton } from './PlusButton';
 export { default as Modal } from './Modal';
+export { default as AddPaymentForm } from './AddPaymentForm';
+export { default as Input } from './Input';

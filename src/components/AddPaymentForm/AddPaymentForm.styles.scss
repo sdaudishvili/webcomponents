@@ -1,0 +1,54 @@
+:host {
+  display: block;
+  * {
+    box-sizing: border-box;
+  }
+  .add-payment {
+    width: 54rem;
+    background-color: white;
+    font-size: 1.6rem;
+    &__header {
+      padding: 1.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    &__form {
+      padding: 0 6.2rem;
+      padding-top: 3.7rem;
+      padding-bottom: 3.2rem;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      grid-row-gap: 3rem;
+      grid-column-gap: 2.1rem;
+      * {
+        grid-column: span 2 / span 2;
+      }
+      &__title,
+      &__amount {
+        grid-column: span 1 / span 1;
+      }
+
+      &__submit {
+        grid-column: span 1 / span 1;
+        grid-column-start: 2;
+        appearance: none;
+        background: none;
+        border: none;
+        outline: none;
+        border-radius: 0;
+        font-family: inherit;
+        height: 4rem;
+        padding: 0 3.6rem;
+        background-color: var(--blue-400);
+        color: white;
+        cursor: pointer;
+        border-radius: 3px;
+        transition: 0.2s;
+        &:hover {
+          background-color: var(--blue-500);
+        }
+      }
+    }
+  }
+}

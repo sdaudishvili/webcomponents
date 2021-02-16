@@ -65,7 +65,6 @@ const payments = [
 ];
 
 mock.onGet('/api/payments').reply(({ q }) => {
-  console.log(q);
   let dataToSend = [...payments];
   if (q) {
     const qToLower = q.toLowerCase();
