@@ -5,3 +5,4 @@ export { default as Chip } from './Chip';
 export { default as Filter } from './Filter';
 export { default as VerticalDivider } from './VerticalDivider';
 export { default as PlusButton } from './PlusButton';
+export { default as Modal } from './Modal';
