@@ -11,8 +11,13 @@
       <my-header></my-header>
       <div class="container app">
         <div class="tools">
-          <div style="width: 20rem; height: 5rem"></div>
-          <my-filter></my-filter>
+          <div class="tools__add-payment">
+            <plus-button class="tools__add-payment__btn"></plus-button>
+            <div class="tools__add-payment__text">ADD PAYMENT</div>
+          </div>
+          <vertical-divider></vertical-divider>
+          <vertical-divider style="margin-left: auto"></vertical-divider>
+          <my-filter class="tools__filter"></my-filter>
         </div>
         <div class="payments-wrapper">
           <div class="payments"></div>

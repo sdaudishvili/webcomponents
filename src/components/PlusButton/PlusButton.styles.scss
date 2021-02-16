@@ -1,0 +1,29 @@
+:host {
+  display: block;
+  width: 100%;
+  border-radius: 50%;
+  color: inherit;
+  border: 1px solid;
+  .wrapper {
+    padding-bottom: 100%;
+    position: relative;
+    &:before,
+    &:after {
+      content: '';
+      position: absolute;
+      background-color: currentColor;
+      left: 50%;
+      top: 50%;
+    }
+    &:before {
+      transform: translateY(-50%);
+      height: 50%;
+      width: 1px;
+    }
+    &:after {
+      transform: translateX(-50%);
+      width: 50%;
+      height: 1px;
+    }
+  }
+}

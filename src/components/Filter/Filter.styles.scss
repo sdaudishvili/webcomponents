@@ -38,5 +38,10 @@
         background-color: var(--blue-500);
       }
     }
+    svg {
+      width: 2.6rem;
+      stroke: var(--grey-100);
+      margin-right: 1.1rem;
+    }
   }
 }

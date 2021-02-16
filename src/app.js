@@ -3,6 +3,11 @@ import { SinglePayment, Footer } from '@/components';
 
 const paymentsContainer = document.querySelector('.payments');
 const footer = document.querySelector('.footer');
+const addPaymentBtn = document.querySelector('.tools__add-payment');
+
+addPaymentBtn.addEventListener('click', (e) => {
+  console.log(e);
+});
 
 const fetchData = (cb, query) => {
   axios.get('/api/payments', query).then((response) => {
