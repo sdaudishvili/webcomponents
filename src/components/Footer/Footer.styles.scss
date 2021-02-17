@@ -1,0 +1,19 @@
+:host {
+  display: block;
+  padding: 1.6rem 1.3rem 1.6rem 2.5rem;
+  @media (max-width: 768px) {
+    padding: 1.6rem 2.5rem;
+  }
+  color: white;
+  background-color: var(--blue-400);
+  .content {
+    width: max-content;
+    margin-left: auto;
+    font-size: 1.4rem;
+    &__text {
+    }
+    &__amount {
+      font-size: 2.8rem;
+    }
+  }
+}

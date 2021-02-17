@@ -1,21 +1,10 @@
+import styles from './Header.styles.scss';
+
+const style = document.createElement('style');
+style.innerHTML = styles;
+
 const templateHeader = document.createElement('template');
 templateHeader.innerHTML = `
-<style lang="scss">
-  :host {
-    display: block;
-  }
-  .header {
-    background: var(--white-100);
-    height: var(--header-size);
-  }
-  .header__content {
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-</style>
-
 <header class="header">
   <div class="header__content container">
     <div>SomeLogo</div>
@@ -27,6 +16,7 @@ templateHeader.innerHTML = `
 class Header extends HTMLElement {
   constructor() {
     super();
+    this.appendChild(style.cloneNode(true));
     this.appendChild(templateHeader.content.cloneNode(true));
   }
 }

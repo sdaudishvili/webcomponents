@@ -24,43 +24,50 @@
     height: calc(100% - var(--header-size));
     display: flex;
     flex-direction: column;
-    .tools {
-      margin-top: 3.2rem;
-      height: 8.4rem;
-      padding: 1.2rem 2.5rem;
-      background: white;
-      display: flex;
-      align-items: center;
-      &__add-payment {
-        display: flex;
-        align-items: center;
-        color: var(--blue-400);
-        font-size: 1.2rem;
-        cursor: pointer;
-        margin-right: 2.5rem;
-        &__btn {
-          width: 3.2rem;
-          margin-right: 1.2rem;
-        }
-        &__text {
-          flex: 1;
-        }
-      }
-      &__filter {
-        height: 100%;
-        margin-left: 2rem;
-      }
-    }
-
     .payments-wrapper {
       margin-top: 7.1rem;
       flex: 1;
       overflow: overlay;
-
       .footer {
         position: sticky;
         bottom: 0;
       }
+    }
+  }
+}
+
+.tools {
+  margin-top: 3.2rem;
+  padding: 1.7rem 2.5rem;
+  background: white;
+  display: flex;
+  align-items: center;
+  &__add-payment {
+    display: flex;
+    align-items: center;
+    color: var(--blue-400);
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-right: 2.5rem;
+    &__btn {
+      width: 3.2rem;
+      margin-right: 1.2rem;
+    }
+    &__text {
+      flex: 1;
+    }
+  }
+  &__filter {
+    height: 100%;
+    margin-left: 2rem;
+    @media (max-width: 768px) {
+      margin-left: 1.2rem;
+    }
+  }
+  .vertical-divider-right {
+    margin-left: auto;
+    @media (max-width: 768px) {
+      display: none;
     }
   }
 }

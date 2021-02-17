@@ -56,7 +56,31 @@ const payments = [
   },
   {
     id: '7',
-    title: 'Payment Title much more Longer than the first one',
+    title: 'Payment Title much more Longer than the first one and previos',
+    category: getRandomCategory(),
+    createDate: new Date(),
+    comment: 'Payment Comment much more Longer than the first one',
+    amount: randBetween(0, 1000) / 100
+  },
+  {
+    id: '8',
+    title: 'Payment Title much more Longer than the first one and previos prev',
+    category: getRandomCategory(),
+    createDate: new Date(),
+    comment: 'Payment Comment much more Longer than the first one',
+    amount: randBetween(0, 1000) / 100
+  },
+  {
+    id: '9',
+    title: 'Payment Title much more Longer than the first one and previos andprev ',
+    category: getRandomCategory(),
+    createDate: new Date(),
+    comment: 'Payment Comment much more Longer than the first one',
+    amount: randBetween(0, 1000) / 100
+  },
+  {
+    id: '10',
+    title: 'Payment Title much more Longer than the first one and previos andprev and prev',
     category: getRandomCategory(),
     createDate: new Date(),
     comment: 'Payment Comment much more Longer than the first one',

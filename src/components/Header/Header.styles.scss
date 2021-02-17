@@ -1,0 +1,16 @@
+:host {
+  display: block;
+}
+.header {
+  background: var(--white-100);
+  height: var(--header-size);
+  @media (max-width: 768px) {
+    padding: 0 2.5rem;
+  }
+  &__content {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
