@@ -16,12 +16,12 @@ module.exports = (env, argv) => ({
     rules: [
       {
         test: /\.(png|jpg|gif|otf|svg|eot|ttf|woff|woff2)$/,
-        exclude: [/\.icon.svg$/],
         use: [
           {
-            loader: 'url-loader',
+            loader: 'file-loader',
             options: {
-              limit: 100000
+              name: '[name].[ext]',
+              outputPath: 'assets/'
             }
           }
         ]
@@ -39,10 +39,6 @@ module.exports = (env, argv) => ({
       {
         test: /\.styles.scss$/,
         use: ['raw-loader', 'sass-loader']
-      },
-      {
-        test: /\.icon.svg$/,
-        use: ['raw-loader']
       }
     ]
   },

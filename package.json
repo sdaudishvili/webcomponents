@@ -44,7 +44,8 @@
   },
   "scripts": {
     "build": "webpack --mode=production",
-    "start": "webpack-dev-server --mode=development --hot",
+    "start": "node server.js",
+    "dev": "webpack-dev-server --mode=development --hot",
     "watch": "webpack --watch"
   },
   "browserslist": [
