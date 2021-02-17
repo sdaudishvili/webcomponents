@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { SinglePayment, Footer, Modal, AddPaymentForm } from '@/components';
 import { fetchPayments } from '@/api/payments.api';
 import { debounce } from '@/utils/helpers';
@@ -12,13 +11,27 @@ const loader = document.querySelector('.loader');
 
 let totalPayments = [];
 
+const onPaymentClick = (e) => {
+  if (e.target.expanded) {
+    e.target.expanded = false;
+  } else {
+    const openedElem = paymentsContainer.querySelector('[expanded]');
+    if (openedElem) {
+      openedElem.expanded = false;
+    }
+    e.target.expanded = true;
+  }
+};
+
 const render = () => {
   paymentsContainer.innerHTML = '';
   footer.innerHTML = '';
   let sum = 0;
   totalPayments.forEach((payment) => {
     sum += Number(payment.amount);
-    paymentsContainer.appendChild(new SinglePayment(payment));
+    const newPayment = new SinglePayment(payment);
+    newPayment.addEventListener('click', onPaymentClick);
+    paymentsContainer.appendChild(newPayment);
   });
   footer.appendChild(new Footer(sum.toFixed(2)));
 };

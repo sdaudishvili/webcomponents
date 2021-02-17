@@ -5,6 +5,10 @@ const style = document.createElement('style');
 style.textContent = styles;
 
 class SinglePayment extends HTMLElement {
+  static get observedAttributes() {
+    return ['expanded'];
+  }
+
   constructor(payment = {}) {
     super();
     this._payment = payment;
@@ -17,33 +21,36 @@ class SinglePayment extends HTMLElement {
 
   connectedCallback() {
     this._render();
-    this.addEventListener('click', this._onClick);
-    this._paymentRef = this.shadowRoot.querySelector('.payment');
-    if (this.getAttribute('expanded') !== 'true') {
-      this._hide();
-    }
+    // this.addEventListener('click', this._onClick);
+    this.$payment = this.shadowRoot.querySelector('.payment');
   }
 
-  disconnectedCallback() {
-    this.removeEventListener('click', this._onClick);
+  // disconnectedCallback() {
+  //   this.removeEventListener('click', this._onClick);
+  // }
+
+  get expanded() {
+    return this.hasAttribute('expanded');
   }
 
-  _onClick() {
-    const nextStatus = this.getAttribute('expanded') !== 'true';
-    if (nextStatus) {
-      this._show();
+  set expanded(val) {
+    if (val === true) {
+      this.setAttribute('expanded', '');
     } else {
-      this._hide();
+      this.removeAttribute('expanded');
     }
-    this.setAttribute('expanded', nextStatus);
   }
 
-  _show() {
-    this._paymentRef.classList.add('payment--expanded');
-  }
-
-  _hide() {
-    this._paymentRef.classList.remove('payment--expanded');
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (oldValue !== newValue) {
+      if (name === 'expanded') {
+        if (newValue || newValue === '') {
+          this.setAttribute('expanded', '');
+        } else {
+          this.removeAttribute('expanded');
+        }
+      }
+    }
   }
 
   _render() {

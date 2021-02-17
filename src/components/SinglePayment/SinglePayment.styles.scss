@@ -47,12 +47,7 @@
       }
     }
   }
-  &--expanded {
-    background: var(--blue-100);
-    #{$self}__comment {
-      height: auto;
-    }
-  }
+
   .row {
     display: flex;
     align-items: center;
@@ -60,5 +55,14 @@
   }
   .row:not(:first-child) {
     margin-top: 1.2rem;
+  }
+}
+
+:host([expanded]) {
+  .payment {
+    background: var(--blue-100);
+    &__comment {
+      height: auto;
+    }
   }
 }
