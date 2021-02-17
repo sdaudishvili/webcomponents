@@ -1,4 +1,4 @@
-import validateObject from '@/utils/validateObject';
+import { validateObject } from '@/utils/helpers';
 import categoryTypes from '@/utils/categoryTypes';
 import styles from './AddPaymentForm.styles.scss';
 import '@/components/DropDown';

@@ -1,11 +1,14 @@
+/* eslint-disable no-unused-vars */
 import { SinglePayment, Footer, Modal, AddPaymentForm } from '@/components';
 import { fetchPayments } from '@/api/payments.api';
+import { debounce } from '@/utils/helpers';
 
 const paymentsContainer = document.querySelector('.payments');
 const scrollableContainer = document.querySelector('.payments-wrapper');
 
 const footer = document.querySelector('.footer');
 const addPaymentBtn = document.querySelector('.tools__add-payment');
+const loader = document.querySelector('.loader');
 
 let totalPayments = [];
 
@@ -47,16 +50,23 @@ addPaymentBtn.addEventListener('click', () => {
 
 document.querySelector('my-filter').addEventListener('filter', onFilter);
 
+const fetchDebounced = debounce(async () => {
+  loader.classList.add('loader--active');
+  const res = await fetchPayments();
+  loader.classList.remove('loader--active');
+  totalPayments = [...totalPayments, ...res];
+  render();
+}, 200);
+
 window.addEventListener('DOMContentLoaded', async () => {
   totalPayments = await fetchPayments();
+  render();
+
   scrollableContainer.onscroll = async () => {
-    const isAtTheEnd =
-      scrollableContainer.scrollTop === scrollableContainer.scrollHeight - scrollableContainer.clientHeight;
-    if (isAtTheEnd && scrollableContainer.scrollHeight > scrollableContainer.clientHeight) {
-      const res = await fetchPayments();
-      totalPayments = [...totalPayments, ...res];
-      render();
+    const startFetching =
+      scrollableContainer.scrollTop >= scrollableContainer.scrollHeight - scrollableContainer.clientHeight - 10;
+    if (startFetching && scrollableContainer.scrollHeight > scrollableContainer.clientHeight) {
+      fetchDebounced();
     }
   };
-  render();
 });

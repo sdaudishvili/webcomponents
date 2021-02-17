@@ -14,7 +14,7 @@
 #root {
   height: 100%;
   .container {
-    width: 1400px;
+    width: 80%;
     margin: auto;
     @media only screen and(max-width: 768px) {
       width: 100%;
@@ -41,6 +41,8 @@
         &__btn {
           width: 3.2rem;
           margin-right: 1.2rem;
+        }
+        &__text {
           flex: 1;
         }
       }
@@ -54,11 +56,47 @@
       margin-top: 7.1rem;
       flex: 1;
       overflow: overlay;
-    }
 
-    .footer {
-      position: sticky;
-      bottom: 0;
+      .footer {
+        position: sticky;
+        bottom: 0;
+      }
     }
+  }
+}
+
+.loader {
+  height: 10rem;
+  background-color: white;
+  margin-top: -1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  $self: &;
+  &__ring {
+    width: 5rem;
+    height: 5rem;
+    opacity: 0;
+    transition: 0.3s;
+    border-radius: 50%;
+    border-top: 2px solid var(--blue-400);
+  }
+  &--active {
+    content: $self;
+    opacity: 1;
+    #{$self}__ring {
+      opacity: 1;
+      animation: anim 1s linear infinite;
+    }
+  }
+}
+
+@keyframes anim {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
