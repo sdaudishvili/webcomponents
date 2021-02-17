@@ -1,5 +1,5 @@
-import axios from '@/utils/axios';
 import { SinglePayment, Footer, Modal, AddPaymentForm } from '@/components';
+import { fetchPayments } from '@/api/payments.api';
 
 const paymentsContainer = document.querySelector('.payments');
 const footer = document.querySelector('.footer');
@@ -24,15 +24,6 @@ addPaymentBtn.addEventListener('click', () => {
   paymentForm.addEventListener('onSubmit', addPayment);
 });
 
-const fetchData = (cb, query) => {
-  axios.get('/api/payments', query).then((response) => {
-    const {
-      data: { payments }
-    } = response;
-    cb(payments);
-  });
-};
-
 const render = (payments) => {
   let sum = 0;
   paymentsContainer.innerHTML = '';
@@ -45,12 +36,14 @@ const render = (payments) => {
   footer.appendChild(new Footer(sum.toFixed(2)));
 };
 
-const onFilter = ({ detail: q }) => {
-  fetchData(render, { q });
+const onFilter = async ({ detail: q }) => {
+  const payments = await fetchPayments({ q });
+  render(payments);
 };
 
 document.querySelector('my-filter').addEventListener('filter', onFilter);
 
-window.addEventListener('DOMContentLoaded', () => {
-  fetchData(render);
+window.addEventListener('DOMContentLoaded', async () => {
+  const payments = await fetchPayments();
+  render(payments);
 });
