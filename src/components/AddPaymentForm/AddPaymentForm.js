@@ -1,5 +1,7 @@
 import validateObject from '@/utils/validateObject';
+import categoryTypes from '@/utils/categoryTypes';
 import styles from './AddPaymentForm.styles.scss';
+import '@/components/DropDown';
 
 const style = document.createElement('style');
 style.innerHTML = styles;
@@ -13,8 +15,8 @@ template.innerHTML = `
   </div>
   <form class="add-payment__form">
     <my-input class="add-payment__form__title" type="text" title="Title"></my-input>
-    <my-input class="add-payment__form__amount" type="text" title="Amount"></my-input>
-    <my-input class="add-payment__form__category" type="text" title="Category"></my-input>
+    <my-input class="add-payment__form__amount" type="number" title="Amount"></my-input>
+    <drop-down class="add-payment__form__category" title="Category"></drop-down>
     <my-input class="add-payment__form__date" type="date" title="Date"></my-input>
     <my-input class="add-payment__form__comment" type="text" title="Comment"></my-input>
     <button  class="add-payment__form__submit"type="submit">CREATE</button>
@@ -27,17 +29,20 @@ class AddPaymentForm extends HTMLElement {
     super();
     const sr = this.attachShadow({ mode: 'open' });
     sr.appendChild(style.cloneNode(true));
-    sr.appendChild(template.content.cloneNode(true));
-    this.$title = sr.querySelector('.add-payment__form__title');
-    this.$amount = sr.querySelector('.add-payment__form__amount');
-    this.$category = sr.querySelector('.add-payment__form__category');
-    this.$date = sr.querySelector('.add-payment__form__date');
-    this.$comment = sr.querySelector('.add-payment__form__comment');
-    this.$form = sr.querySelector('.add-payment__form');
-    this.$closeBtn = sr.querySelector('.add-payment__header__close');
   }
 
   connectedCallback() {
+    this.shadowRoot.appendChild(template.content.cloneNode(true));
+    this.$category = this.shadowRoot.querySelector('.add-payment__form__category');
+    this.$title = this.shadowRoot.querySelector('.add-payment__form__title');
+    this.$amount = this.shadowRoot.querySelector('.add-payment__form__amount');
+    this.$date = this.shadowRoot.querySelector('.add-payment__form__date');
+    this.$comment = this.shadowRoot.querySelector('.add-payment__form__comment');
+    this.$form = this.shadowRoot.querySelector('.add-payment__form');
+    this.$closeBtn = this.shadowRoot.querySelector('.add-payment__header__close');
+
+    this.$category.items = categoryTypes;
+
     this.$form.onsubmit = (e) => {
       e.preventDefault();
       const obj = {

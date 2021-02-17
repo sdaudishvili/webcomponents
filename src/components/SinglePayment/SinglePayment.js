@@ -59,7 +59,7 @@ class SinglePayment extends HTMLElement {
           <my-chip>${this._payment.category}</my-chip>
         </div>
         <div class="payment__price">
-          <div class="payment__price__amount">${this._payment.amount}</div>
+          <div class="payment__price__amount">${Number(this._payment.amount).toFixed(2)}</div>
           <div class="payment__price__currency">GEL</div>
         </div>
       </div>

@@ -2,16 +2,37 @@ import { SinglePayment, Footer, Modal, AddPaymentForm } from '@/components';
 import { fetchPayments } from '@/api/payments.api';
 
 const paymentsContainer = document.querySelector('.payments');
+const scrollableContainer = document.querySelector('.payments-wrapper');
+
 const footer = document.querySelector('.footer');
 const addPaymentBtn = document.querySelector('.tools__add-payment');
+
+let totalPayments = [];
+
+const render = () => {
+  paymentsContainer.innerHTML = '';
+  footer.innerHTML = '';
+  let sum = 0;
+  totalPayments.forEach((payment) => {
+    sum += Number(payment.amount);
+    paymentsContainer.appendChild(new SinglePayment(payment));
+  });
+  footer.appendChild(new Footer(sum.toFixed(2)));
+};
+
+const onFilter = async ({ detail: q }) => {
+  totalPayments = await fetchPayments({ q });
+  render();
+};
 
 const closePopup = () => {
   document.querySelector('my-modal').remove();
 };
 
 const addPayment = ({ detail: newPayment }) => {
-  console.log(newPayment);
   closePopup();
+  totalPayments = [newPayment, ...totalPayments];
+  render();
 };
 
 addPaymentBtn.addEventListener('click', () => {
@@ -24,26 +45,18 @@ addPaymentBtn.addEventListener('click', () => {
   paymentForm.addEventListener('onSubmit', addPayment);
 });
 
-const render = (payments) => {
-  let sum = 0;
-  paymentsContainer.innerHTML = '';
-  footer.innerHTML = '';
-
-  payments.forEach((payment) => {
-    sum += payment.amount;
-    paymentsContainer.appendChild(new SinglePayment(payment));
-  });
-  footer.appendChild(new Footer(sum.toFixed(2)));
-};
-
-const onFilter = async ({ detail: q }) => {
-  const payments = await fetchPayments({ q });
-  render(payments);
-};
-
 document.querySelector('my-filter').addEventListener('filter', onFilter);
 
 window.addEventListener('DOMContentLoaded', async () => {
-  const payments = await fetchPayments();
-  render(payments);
+  totalPayments = await fetchPayments();
+  scrollableContainer.onscroll = async () => {
+    const isAtTheEnd =
+      scrollableContainer.scrollTop === scrollableContainer.scrollHeight - scrollableContainer.clientHeight;
+    if (isAtTheEnd && scrollableContainer.scrollHeight > scrollableContainer.clientHeight) {
+      const res = await fetchPayments();
+      totalPayments = [...totalPayments, ...res];
+      render();
+    }
+  };
+  render();
 });
