@@ -16,7 +16,7 @@
   .container {
     width: 80%;
     margin: auto;
-    @media only screen and(max-width: 768px) {
+    @media (max-width: 768px) {
       width: 100%;
     }
   }
@@ -63,8 +63,17 @@
   }
 }
 
+.total-records {
+  margin-top: 3rem;
+  font-size: 2.6rem;
+  color: var(--dark-blue);
+  @media (max-width: 768px) {
+    padding: 0 2.5rem;
+  }
+}
+
 .payments {
-  margin-top: 7.1rem;
+  margin-top: 1.5rem;
   flex: 1;
   overflow: overlay;
   &__loader {

@@ -9,6 +9,8 @@ const footer = document.querySelector('.payments__footer');
 const addPaymentBtn = document.querySelector('.tools__add-payment');
 const loader = document.querySelector('.payments__loader');
 
+const totalRecordsNode = document.querySelector('.total-records__count');
+
 let totalPayments = [];
 
 const onPaymentClick = (e) => {
@@ -26,6 +28,7 @@ const onPaymentClick = (e) => {
 const render = () => {
   paymentsContainer.innerHTML = '';
   footer.innerHTML = '';
+  totalRecordsNode.innerHTML = totalPayments.length;
   let sum = 0;
   totalPayments.forEach((payment) => {
     sum += Number(payment.amount);
