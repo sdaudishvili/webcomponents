@@ -16,7 +16,8 @@ const PER_FETCH = 10;
 const state = {
   payments: [],
   totalCount: [],
-  page: 1
+  page: 1,
+  q: ''
 };
 
 const onPaymentClick = (e) => {
