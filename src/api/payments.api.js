@@ -3,10 +3,8 @@ import axios from '@/utils/axios';
 
 export const fetchPayments = async (options) => {
   try {
-    const {
-      data: { payments }
-    } = await axios.get('/api/payments', options);
-    return payments;
+    const { data } = await axios.get('/api/payments', options);
+    return data;
   } catch (error) {
     console.log(error);
     throw error;

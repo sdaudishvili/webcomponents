@@ -11,7 +11,13 @@ const loader = document.querySelector('.payments__loader');
 
 const totalRecordsNode = document.querySelector('.total-records__count');
 
-let totalPayments = [];
+const PER_FETCH = 10;
+
+const state = {
+  payments: [],
+  totalCount: [],
+  page: 1
+};
 
 const onPaymentClick = (e) => {
   if (e.target.expanded) {
@@ -25,12 +31,16 @@ const onPaymentClick = (e) => {
   }
 };
 
+const closePopup = () => {
+  document.querySelector('my-modal').remove();
+};
+
 const render = () => {
   paymentsContainer.innerHTML = '';
   footer.innerHTML = '';
-  totalRecordsNode.innerHTML = totalPayments.length;
+  totalRecordsNode.innerHTML = state.totalCount;
   let sum = 0;
-  totalPayments.forEach((payment) => {
+  state.payments.forEach((payment) => {
     sum += Number(payment.amount);
     const newPayment = new SinglePayment(payment);
     newPayment.addEventListener('click', onPaymentClick);
@@ -39,18 +49,10 @@ const render = () => {
   footer.appendChild(new Footer(sum.toFixed(2)));
 };
 
-const onFilter = async ({ detail: q }) => {
-  totalPayments = await fetchPayments({ q });
-  render();
-};
-
-const closePopup = () => {
-  document.querySelector('my-modal').remove();
-};
-
 const addPayment = ({ detail: newPayment }) => {
   closePopup();
-  totalPayments = [newPayment, ...totalPayments];
+  state.payments = [newPayment, ...state.payments];
+  state.totalCount += 1;
   render();
 };
 
@@ -64,18 +66,28 @@ addPaymentBtn.addEventListener('click', () => {
   paymentForm.addEventListener('onSubmit', addPayment);
 });
 
-document.querySelector('my-filter').addEventListener('filter', onFilter);
+document.querySelector('my-filter').addEventListener('filter', async ({ detail: q }) => {
+  state.page = 1;
+  state.q = q;
+  const res = await fetchPayments({ skip: (state.page - 1) * PER_FETCH, take: PER_FETCH, q: state.q });
+  state.totalCount = res.totalCount;
+  state.payments = res.payments;
+  render();
+});
 
 const fetchDebounced = debounce(async () => {
   loader.classList.add('payments__loader--active');
-  const res = await fetchPayments();
+  state.page += 1;
+  const res = await fetchPayments({ skip: (state.page - 1) * PER_FETCH, take: PER_FETCH, q: state.q });
   loader.classList.remove('payments__loader--active');
-  totalPayments = [...totalPayments, ...res];
+  state.payments = [...state.payments, ...res.payments];
   render();
 }, 200);
 
 window.addEventListener('DOMContentLoaded', async () => {
-  totalPayments = await fetchPayments();
+  const res = await fetchPayments();
+  state.payments = res.payments;
+  state.totalCount = res.totalCount;
   render();
 
   scrollableContainer.onscroll = async () => {

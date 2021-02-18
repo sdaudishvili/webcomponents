@@ -1,94 +1,53 @@
 import mock from '@/utils/mock';
 import categoryTypes from '@/utils/categoryTypes';
 
-const randBetween = (min, max) => Math.floor(Math.random() * max) + min;
-
-const getRandomCategory = () => categoryTypes[randBetween(0, categoryTypes.length)];
-
-const payments = [
-  {
-    id: '1',
-    title: 'Payment Title',
-    category: getRandomCategory(),
-    createDate: new Date(),
-    comment: 'Payment Comment',
-    amount: randBetween(0, 1000) / 100
-  },
-  {
-    id: '2',
-    title: 'Payment Title Longer',
-    category: getRandomCategory(),
-    createDate: new Date(),
-    comment: 'Payment Comment Longer',
-    amount: randBetween(0, 1000) / 100
-  },
-  {
-    id: '3',
-    title: 'Longer Payment Title',
-    category: getRandomCategory(),
-    createDate: new Date(),
-    comment: 'Longer Payment Comment',
-    amount: randBetween(0, 1000) / 100
-  },
-  {
-    id: '4',
-    title: 'Payment Title a bit Longer',
-    category: getRandomCategory(),
-    createDate: new Date(),
-    comment: 'Payment Comment a bit Longer',
-    amount: randBetween(0, 1000) / 100
-  },
-  {
-    id: '5',
-    title: 'Payment Title a bit Longer than previous one',
-    category: getRandomCategory(),
-    createDate: new Date(),
-    comment: 'Payment Comment a bit Longer than previous one',
-    amount: randBetween(0, 1000) / 100
-  },
-  {
-    id: '6',
-    title: 'Payment Title much more Longer than the first one',
-    category: getRandomCategory(),
-    createDate: new Date(),
-    comment: 'Payment Comment much more Longer than the first one',
-    amount: randBetween(0, 1000) / 100
-  },
-  {
-    id: '7',
-    title: 'Payment Title much more Longer than the first one and previos',
-    category: getRandomCategory(),
-    createDate: new Date(),
-    comment: 'Payment Comment much more Longer than the first one',
-    amount: randBetween(0, 1000) / 100
-  },
-  {
-    id: '8',
-    title: 'Payment Title much more Longer than the first one and previos prev',
-    category: getRandomCategory(),
-    createDate: new Date(),
-    comment: 'Payment Comment much more Longer than the first one',
-    amount: randBetween(0, 1000) / 100
-  },
-  {
-    id: '9',
-    title: 'Payment Title much more Longer than the first one and previos andprev ',
-    category: getRandomCategory(),
-    createDate: new Date(),
-    comment: 'Payment Comment much more Longer than the first one',
-    amount: randBetween(0, 1000) / 100
-  },
-  {
-    id: '10',
-    title: 'Payment Title much more Longer than the first one and previos andprev and prev',
-    category: getRandomCategory(),
-    createDate: new Date(),
-    comment: 'Payment Comment much more Longer than the first one',
-    amount: randBetween(0, 1000) / 100
-  }
+export const titles = [
+  'Payment Title',
+  'Payment Title Longer',
+  'Longer Payment Title',
+  'Payment Title a bit Longer',
+  'Payment Title a bit Longer than previous one',
+  'Payment Title much more Longer than the first one',
+  'Payment Title much more Longer than the first one and previos',
+  'Payment Title much more Longer than the first one and previos prev',
+  'Payment Title much more Longer than the first one and previos andprev ',
+  'Payment Title much more Longer than the first one and previos andprev and prev'
 ];
 
-mock.onGet('/api/payments').reply(({ q }) => {
+export const comments = [
+  'Payment Comment',
+  'Payment Comment Longer',
+  'Longer Payment Comment',
+  'Payment Comment a bit Longer',
+  'Payment Comment a bit Longer than previous one',
+  'Payment Comment much more Longer than the first one',
+  'Payment Comment much more Longer than the first one',
+  'Payment Comment much more Longer than the first one',
+  'Payment Comment much more Longer than the first one',
+  'Payment Comment much more Longer than the first one'
+];
+const randBetween = (min, max) => Math.floor(Math.random() * max) + min;
+
+const getTitle = () => titles[randBetween(0, titles.length)];
+const getCategory = () => categoryTypes[randBetween(0, categoryTypes.length)];
+const getDate = () => new Date();
+const getComment = () => comments[randBetween(0, comments.length)];
+const getAmount = () => randBetween(0, 1000) / 100;
+
+const generateCategory = () => ({
+  title: getTitle(),
+  category: getCategory(),
+  createDate: getDate(),
+  comment: getComment(),
+  amount: getAmount()
+});
+
+const totalPayments = 100;
+
+const payments = Array(totalPayments).fill(undefined).map(generateCategory);
+console.log(payments);
+
+mock.onGet('/api/payments').reply(({ q, skip = 0, take = 10 }) => {
   let dataToSend = [...payments];
   if (q) {
     const qToLower = q.toLowerCase();
@@ -99,5 +58,5 @@ mock.onGet('/api/payments').reply(({ q }) => {
         x.category.toLowerCase().includes(qToLower)
     );
   }
-  return [200, { payments: dataToSend }];
+  return [200, { payments: dataToSend.slice(skip, take + skip), totalCount: dataToSend.length }];
 });

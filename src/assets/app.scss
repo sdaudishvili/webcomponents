@@ -86,12 +86,14 @@
 
     $self: &;
     &__ring {
-      width: 5rem;
-      height: 5rem;
+      width: 3.2rem;
+      height: 3.2rem;
       opacity: 0;
       transition: 0.3s;
       border-radius: 50%;
-      border-top: 2px solid var(--blue-400);
+      border: 2px solid transparent;
+      border-top-color: var(--blue-400);
+      border-left-color: var(--blue-400);
     }
     &--active {
       content: $self;
