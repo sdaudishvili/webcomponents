@@ -10,3 +10,12 @@ export const fetchPayments = async (options) => {
     throw error;
   }
 };
+
+export const postPayment = async (payment) => {
+  try {
+    await axios.post('/api/payments', payment);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};

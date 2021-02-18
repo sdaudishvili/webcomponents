@@ -1,7 +1,7 @@
 import mock from '@/utils/mock';
 import categoryTypes from '@/utils/categoryTypes';
 
-export const titles = [
+const titles = [
   'Payment Title',
   'Payment Title Longer',
   'Longer Payment Title',
@@ -14,7 +14,7 @@ export const titles = [
   'Payment Title much more Longer than the first one and previos andprev and prev'
 ];
 
-export const comments = [
+const comments = [
   'Payment Comment',
   'Payment Comment Longer',
   'Longer Payment Comment',
@@ -34,7 +34,7 @@ const getDate = () => new Date();
 const getComment = () => comments[randBetween(0, comments.length)];
 const getAmount = () => randBetween(0, 1000) / 100;
 
-const generateCategory = () => ({
+const generatePayment = () => ({
   title: getTitle(),
   category: getCategory(),
   createDate: getDate(),
@@ -42,10 +42,9 @@ const generateCategory = () => ({
   amount: getAmount()
 });
 
-const totalPayments = 100;
+const initialTotalPayments = 100;
 
-const payments = Array(totalPayments).fill(undefined).map(generateCategory);
-console.log(payments);
+let payments = Array(initialTotalPayments).fill(undefined).map(generatePayment);
 
 mock.onGet('/api/payments').reply(({ q, skip = 0, take = 10 }) => {
   let dataToSend = [...payments];
@@ -59,4 +58,9 @@ mock.onGet('/api/payments').reply(({ q, skip = 0, take = 10 }) => {
     );
   }
   return [200, { payments: dataToSend.slice(skip, take + skip), totalCount: dataToSend.length }];
+});
+
+mock.onPost('/api/payments').reply(({ data }) => {
+  payments = [JSON.parse(data), ...payments];
+  return [201];
 });

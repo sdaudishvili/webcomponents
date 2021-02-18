@@ -1,5 +1,5 @@
 import { SinglePayment, Footer, Modal, AddPaymentForm } from '@/components';
-import { fetchPayments } from '@/api/payments.api';
+import { fetchPayments, postPayment } from '@/api/payments.api';
 import { debounce } from '@/utils/helpers';
 
 const scrollableContainer = document.querySelector('.payments');
@@ -49,14 +49,21 @@ const render = () => {
   footer.appendChild(new Footer(sum.toFixed(2)));
 };
 
-const addPayment = ({ detail: newPayment }) => {
-  closePopup();
-  state.payments = [newPayment, ...state.payments];
-  state.totalCount += 1;
+const fetchAndRender = async () => {
+  state.page = 1;
+  const res = await fetchPayments({ skip: (state.page - 1) * PER_FETCH, take: PER_FETCH, q: state.q });
+  state.totalCount = res.totalCount;
+  state.payments = res.payments;
   render();
 };
 
-addPaymentBtn.addEventListener('click', () => {
+const addPayment = async ({ detail: newPayment }) => {
+  closePopup();
+  await postPayment(newPayment);
+  await fetchAndRender();
+};
+
+addPaymentBtn.addEventListener('click', async () => {
   const modal = new Modal();
   const paymentForm = new AddPaymentForm();
   modal.appendChild(paymentForm);
@@ -67,12 +74,8 @@ addPaymentBtn.addEventListener('click', () => {
 });
 
 document.querySelector('my-filter').addEventListener('filter', async ({ detail: q }) => {
-  state.page = 1;
   state.q = q;
-  const res = await fetchPayments({ skip: (state.page - 1) * PER_FETCH, take: PER_FETCH, q: state.q });
-  state.totalCount = res.totalCount;
-  state.payments = res.payments;
-  render();
+  await fetchAndRender();
 });
 
 const fetchDebounced = debounce(async () => {
@@ -85,10 +88,7 @@ const fetchDebounced = debounce(async () => {
 }, 200);
 
 window.addEventListener('DOMContentLoaded', async () => {
-  const res = await fetchPayments();
-  state.payments = res.payments;
-  state.totalCount = res.totalCount;
-  render();
+  await fetchAndRender();
 
   scrollableContainer.onscroll = async () => {
     const startFetching =
