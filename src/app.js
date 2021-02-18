@@ -2,12 +2,12 @@ import { SinglePayment, Footer, Modal, AddPaymentForm } from '@/components';
 import { fetchPayments } from '@/api/payments.api';
 import { debounce } from '@/utils/helpers';
 
-const paymentsContainer = document.querySelector('.payments');
-const scrollableContainer = document.querySelector('.payments-wrapper');
+const scrollableContainer = document.querySelector('.payments');
+const paymentsContainer = document.querySelector('.payments__container');
+const footer = document.querySelector('.payments__footer');
 
-const footer = document.querySelector('.footer');
 const addPaymentBtn = document.querySelector('.tools__add-payment');
-const loader = document.querySelector('.loader');
+const loader = document.querySelector('.payments__loader');
 
 let totalPayments = [];
 
@@ -64,9 +64,9 @@ addPaymentBtn.addEventListener('click', () => {
 document.querySelector('my-filter').addEventListener('filter', onFilter);
 
 const fetchDebounced = debounce(async () => {
-  loader.classList.add('loader--active');
+  loader.classList.add('payments__loader--active');
   const res = await fetchPayments();
-  loader.classList.remove('loader--active');
+  loader.classList.remove('payments__loader--active');
   totalPayments = [...totalPayments, ...res];
   render();
 }, 200);

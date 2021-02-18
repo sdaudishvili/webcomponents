@@ -24,15 +24,6 @@
     height: calc(100% - var(--header-size));
     display: flex;
     flex-direction: column;
-    .payments-wrapper {
-      margin-top: 7.1rem;
-      flex: 1;
-      overflow: overlay;
-      .footer {
-        position: sticky;
-        bottom: 0;
-      }
-    }
   }
 }
 
@@ -72,30 +63,39 @@
   }
 }
 
-.loader {
-  height: 10rem;
-  background-color: white;
-  margin-top: -1px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.payments {
+  margin-top: 7.1rem;
+  flex: 1;
+  overflow: overlay;
+  &__loader {
+    height: 10rem;
+    background-color: white;
+    margin-top: -1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  $self: &;
-  &__ring {
-    width: 5rem;
-    height: 5rem;
-    opacity: 0;
-    transition: 0.3s;
-    border-radius: 50%;
-    border-top: 2px solid var(--blue-400);
-  }
-  &--active {
-    content: $self;
-    opacity: 1;
-    #{$self}__ring {
-      opacity: 1;
-      animation: anim 1s linear infinite;
+    $self: &;
+    &__ring {
+      width: 5rem;
+      height: 5rem;
+      opacity: 0;
+      transition: 0.3s;
+      border-radius: 50%;
+      border-top: 2px solid var(--blue-400);
     }
+    &--active {
+      content: $self;
+      opacity: 1;
+      #{$self}__ring {
+        opacity: 1;
+        animation: anim 1s linear infinite;
+      }
+    }
+  }
+  &__footer {
+    position: sticky;
+    bottom: 0;
   }
 }
 

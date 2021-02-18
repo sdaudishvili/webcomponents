@@ -8,9 +8,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.0/gsap.min.js"></script>
   </head>
   <body>
-    <div id="root">
+    <div role="main" id="root">
       <my-header></my-header>
-      <div class="container app">
+      <div class="app container">
         <div class="tools">
           <div class="tools__add-payment">
             <plus-button class="tools__add-payment__btn"></plus-button>
@@ -20,12 +20,12 @@
           <vertical-divider class="vertical-divider-right"></vertical-divider>
           <my-filter class="tools__filter"></my-filter>
         </div>
-        <div class="payments-wrapper">
-          <div class="payments"></div>
-          <div class="loader">
-            <div class="loader__ring"></div>
+        <div class="payments">
+          <div class="payments__container"></div>
+          <div class="payments__loader">
+            <div class="payments__loader__ring"></div>
           </div>
-          <div class="footer"></div>
+          <div class="payments__footer"></div>
         </div>
       </div>
     </div>
