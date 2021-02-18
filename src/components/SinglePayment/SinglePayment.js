@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import dayjs from 'dayjs';
 import styles from './SinglePayment.styles.scss';
 
@@ -21,13 +22,8 @@ class SinglePayment extends HTMLElement {
 
   connectedCallback() {
     this._render();
-    // this.addEventListener('click', this._onClick);
-    this.$payment = this.shadowRoot.querySelector('.payment');
+    this.$comment = this.shadowRoot.querySelector('.payment__comment');
   }
-
-  // disconnectedCallback() {
-  //   this.removeEventListener('click', this._onClick);
-  // }
 
   get expanded() {
     return this.hasAttribute('expanded');
@@ -46,8 +42,10 @@ class SinglePayment extends HTMLElement {
       if (name === 'expanded') {
         if (newValue || newValue === '') {
           this.setAttribute('expanded', '');
+          gsap.to(this.$comment, { height: 'auto' });
         } else {
           this.removeAttribute('expanded');
+          gsap.to(this.$comment, { height: '0' });
         }
       }
     }
